@@ -1,0 +1,10 @@
+pytorch
+numpy
+pandas
+sckit-learn
+librosa
+matplotlib
+seaborn
+flask
+flask-sqlalchemy
+flask-cors

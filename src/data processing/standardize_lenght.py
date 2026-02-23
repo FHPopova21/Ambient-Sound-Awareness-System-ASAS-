@@ -32,4 +32,10 @@ def standardize_lenght(y, sr, targer_duration = 2.0 ):
         y = np.pad(y, (padding_left, padding_right), mode = "constant")
 
     elif current_lenght > target_lenght:
-        #
+        start = (current_lenght - target_lenght) // 2
+        y_standardized = y[start:start + target_lenght]
+    else:
+        y_standardized = y
+
+    return y_standardized
+    

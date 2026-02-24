@@ -5,7 +5,7 @@ import numpy as np
 import librosa.display
 from sklearn.preprocessing import LabelEncoder
 
-def standardize_lenght(y, sr, targer_duration = 2.0 ):
+def standardize_lenght(y, sr, target_duration = 2.0 ):
     """
     Standardize the length of an audio file.
 
@@ -19,7 +19,7 @@ def standardize_lenght(y, sr, targer_duration = 2.0 ):
         int: Sample rate.
     """
     
-    target_lenght = int(targer_duration * sr)
+    target_lenght = int(target_duration * sr)
     current_lenght = len(y)
 
     if current_lenght < target_lenght:

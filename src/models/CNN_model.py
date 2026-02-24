@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class AudioCNN(nn.Module):
-    def __init__(self, n_classes=5):
+    def __init__(self, n_classes=50):
         super().__init__()
         self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
         self.batchnorm1 = nn.BatchNorm2d(32)
@@ -14,7 +14,7 @@ class AudioCNN(nn.Module):
         self.pool2 = nn.MaxPool2d(2, 2)
 
         self.conv3 = nn.Conv2d(64, 128, kernel_size=3, padding=1)
-        self.batchnorm3 = nn.BatchNorm3d(128)
+        self.batchnorm3 = nn.BatchNorm2d(128)
 
         self.gap = nn.AdaptiveAvgPool2d(1)
         self.fc1 = nn.Linear(128, 64)
@@ -39,6 +39,9 @@ class AudioCNN(nn.Module):
         x = self.conv3(x)
         x = self.batchnorm3(x)
         x = F.relu(x)
+
+        x = self.gap(x)
+        x = torch.flatten(x, 1) # Flatten all dimensions except batch
 
         x = self.fc1(x)
         x = F.relu(x)

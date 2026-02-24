@@ -6,9 +6,9 @@ from torch.utils.data import Dataset
 from sklearn.preprocessing import LabelEncoder 
 
 from src.data_processing.clean_audio import load_and_clean_audio
-from src.data_processing.standardize_lenght import standardize_lenght 
 from src.data_processing.extract_mel import extract_mel_spectrogram
 from src.data_processing.format_for_mel import format_for_mel
+from src.data_processing.segment_audio import segment_audio
 
 
 class ESC50Dataset(Dataset):
@@ -34,8 +34,8 @@ class ESC50Dataset(Dataset):
         audio_path = os.path.join(self.audio_dir, filename)
 
         y, sr = load_and_clean_audio(audio_path, sr = 22050, top_db = 20)
-        y_standardized = standardize_lenght(y, sr, target_duration=2.0)
-        mel_spectogram = extract_mel_spectrogram(y_standardized, sr, n_mels = 128, fmax = 8000)
+        segments = segment_audio(y, sr, segment_duration=2.0, overlap=0.5)
+        mel_spectogram = extract_mel_spectrogram(segments, sr, n_mels = 128, fmax = 8000)
         mel_tensor = format_for_mel(mel_spectogram)
 
         x_tensor = torch.tensor(mel_tensor, dtype=torch.float32)

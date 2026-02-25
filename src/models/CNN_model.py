@@ -3,7 +3,7 @@ import torch.nn as nn
 import torch.nn.functional as F
 
 class AudioCNN(nn.Module):
-    def __init__(self, n_classes=50):
+    def __init__(self, n_classes=10):
         super().__init__()
         self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)
         self.batchnorm1 = nn.BatchNorm2d(32)
@@ -51,7 +51,7 @@ class AudioCNN(nn.Module):
         return x
 
 class DeepAudioCNN(nn.Module):
-    def __init__(self, n_classes=50):
+    def __init__(self, n_classes=10):
         super().__init__()
         
         self.conv1 = nn.Conv2d(1, 32, kernel_size=3, padding=1)

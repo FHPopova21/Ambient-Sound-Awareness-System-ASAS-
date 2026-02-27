@@ -11,3 +11,4 @@ flask-sqlalchemy
 flask-cors
 tqdm
 coremltools
+ipywidgets

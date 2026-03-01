@@ -17,7 +17,7 @@ from tqdm import tqdm
 sys.stdout.reconfigure(encoding='utf-8')
 
 from src.models.mobilenet_model import AudioMobileNetV2
-from src.data_processing.urbansound_dataset import UrbanSoundDataset
+from src.data_processing.Dataset import UrbanSoundDataset
 from src.data_processing.augmentation import SpecAugment
 
 def train_mobilenet(

@@ -14,7 +14,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from src.models.CNN_model import DeepAudioCNN
-from src.data_processing.urbansound_dataset import UrbanSoundDataset
+from src.data_processing.Dataset import UrbanSoundDataset
 
 def train_deepcnn(
     csv_file="data/train_split.csv",

@@ -7,14 +7,16 @@ from src.data_processing.extract_mel import extract_mel_spectrogram
 from src.data_processing.format_for_mel import format_for_mel
 
 class AudioFolderDataset(Dataset):
-    def __init__(self, root_dir, transform=None):
+    def __init__(self, root_dir, augment=False, transform=None):
         """
         Зарежда аудио файлове директно от подпапки, където името на папката е класът.
         Args:
             root_dir (str): Път до главната папка (напр. data/Dataset_Final)
+            augment (bool): Дали да се прилага data augmentation (time_shift, noise)
             transform (callable, optional): Допълнителни трансформации.
         """
         self.root_dir = root_dir
+        self.augment = augment
         self.transform = transform
         
         # Динамично създаване на класовете от папките
@@ -40,8 +42,8 @@ class AudioFolderDataset(Dataset):
         audio_path = self.filepaths[idx]
         label = self.labels[idx]
         
-        # Извличане на мел-спектрограма
-        mel_spec = extract_mel_spectrogram(audio_path)
+        # Извличане на мел-спектрограма (подаваме флага за аугментация)
+        mel_spec = extract_mel_spectrogram(audio_path, augment=self.augment)
         
         # Форматиране (нормализация и добавяне на канал)
         mel_tensor_np = format_for_mel(mel_spec)

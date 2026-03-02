@@ -6,6 +6,9 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 if project_root not in sys.path:
     sys.path.append(project_root)
 
+sys.stdout.reconfigure(encoding='utf-8')
+
+
 import json
 import torch
 import torch.nn as nn
@@ -14,7 +17,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from src.models.LSTM import AudioLSTM
-from src.data_processing.Dataset import UrbanSoundDataset
+from src.data_processing.audio_dataset import AudioFolderDataset
 
 def train_lstm(
     csv_file="data/train_split.csv",
@@ -28,18 +31,28 @@ def train_lstm(
     print(f"Training LSTM on device: {device}")
     
     # 1. Зареждане на данните
-    train_dataset = UrbanSoundDataset(csv_file=csv_file, audio_dir=audio_dir)
-    val_dataset = UrbanSoundDataset(csv_file=val_csv, audio_dir=audio_dir)
+    train_dataset = AudioFolderDataset(root_dir="data/Dataset_Final",
+                augment=True)
+    
+    val_dataset = AudioFolderDataset(root_dir="data/Dataset_Final",
+                augment=False)
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
     
     # 2. Инициализация на модела
     # Внимание: LSTM приема n_feature=128 (ако подаваме Мел-спектрограми директно от Dataset)
-    model = AudioLSTM(n_feature=128, out_feature=10).to(device)
+    model = AudioLSTM(n_feature=128, out_feature=8).to(device)
     
     # 3. Loss & Optimizer
-    criterion = nn.CrossEntropyLoss()
+    # Добавяме class weights за малките класове (Baby_Cry, Door_Signal, Glass_Break)
+    class_weights = torch.ones(8).to(device)
+    class_weights[0] = 5.0  # Baby_Cry (idx: 0)
+    class_weights[5] = 5.0  # Door_Signal (idx: 5)
+    class_weights[6] = 50.0 # Glass_Break (idx: 6) - Най-проблемният клас
+    
+    criterion = nn.CrossEntropyLoss(weight=class_weights)
+    
     optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-4) # L2 Регуляризация
     
     # Регулатор на learning rate

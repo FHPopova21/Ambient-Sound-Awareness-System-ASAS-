@@ -6,6 +6,8 @@ project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 if project_root not in sys.path:
     sys.path.append(project_root)
 
+sys.stdout.reconfigure(encoding='utf-8')
+
 import json
 import torch
 import torch.nn as nn
@@ -14,7 +16,7 @@ from torch.utils.data import DataLoader
 from tqdm import tqdm
 
 from src.models.CNN_model import DeepAudioCNN
-from src.data_processing.Dataset import UrbanSoundDataset
+from src.data_processing.audio_dataset import AudioFolderDataset
 
 def train_deepcnn(
     csv_file="data/train_split.csv",
@@ -27,8 +29,11 @@ def train_deepcnn(
 ):
     print(f"Training DeepCNN on device: {device}")
     
-    train_dataset = UrbanSoundDataset(csv_file=csv_file, audio_dir=audio_dir)
-    val_dataset = UrbanSoundDataset(csv_file=val_csv, audio_dir=audio_dir)
+    train_dataset = AudioFolderDataset(root_dir="data/Dataset_Final",
+                augment=True)
+    
+    val_dataset = AudioFolderDataset(root_dir="data/Dataset_Final",
+                augment=False)
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2)

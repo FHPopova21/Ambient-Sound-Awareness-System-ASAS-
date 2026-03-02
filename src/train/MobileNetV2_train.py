@@ -17,7 +17,7 @@ from tqdm import tqdm
 sys.stdout.reconfigure(encoding='utf-8')
 
 from src.models.mobilenet_model import AudioMobileNetV2
-from src.data_processing.Dataset import UrbanSoundDataset
+from src.data_processing.audio_dataset import AudioFolderDataset
 from src.data_processing.augmentation import SpecAugment
 
 def train_mobilenet(
@@ -33,24 +33,23 @@ def train_mobilenet(
 
     train_transform = SpecAugment(freq_mask_param=20, time_mask_param=40)
     
-    train_dataset = UrbanSoundDataset(csv_file=csv_file,
-                audio_dir=audio_dir,
-                transform=train_transform)
+    train_dataset = AudioFolderDataset(root_dir="data/Dataset_Final",
+                augment=True)
     
-    val_dataset = UrbanSoundDataset(csv_file=val_csv,
-                audio_dir=audio_dir,
-                transform=None)
+    val_dataset = AudioFolderDataset(root_dir="data/Dataset_Final",
+                augment=False)
     
     train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
     val_loader = DataLoader(val_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
     
-    model = AudioMobileNetV2(n_classes=10).to(device)
+    model = AudioMobileNetV2(n_classes=8).to(device)
     
     # Дефиниране на тежести за класовете:
-    # Увеличаваме тежестта за класове като air_conditioner (0) и drilling (4)
-    class_weights = torch.ones(10).to(device)
-    class_weights[0] = 2.0  # air_conditioner
-    class_weights[4] = 2.0  # drilling
+    # Увеличаваме тежестта за по-малките класове: Baby_Cry, Door_Signal, Glass_Break
+    class_weights = torch.ones(8).to(device)
+    class_weights[0] = 3.0  # Baby_Cry
+    class_weights[5] = 3.0  # Door_Signal
+    class_weights[6] = 3.0  # Glass_Break
     
     criterion = nn.CrossEntropyLoss(weight=class_weights)
     optimizer = optim.Adam(model.parameters(), lr=lr, weight_decay=1e-3) # Увеличен Weight Decay

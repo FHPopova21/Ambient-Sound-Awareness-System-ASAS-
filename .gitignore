@@ -215,3 +215,5 @@ data/*.csv
 .DS_Store
 
 data/Dataset_Final
+
+Windows_App/frontend/node_modules

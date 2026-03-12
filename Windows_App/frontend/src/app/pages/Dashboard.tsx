@@ -1,9 +1,16 @@
 import { motion, AnimatePresence } from "motion/react";
 import { LiquidCard } from "../components/ui/LiquidCard";
 import { AudioVisualizer } from "../components/ui/AudioVisualizer";
-import { Mic, Bell, Battery, Wifi, BellRing } from "lucide-react";
+import { Mic, Bell, Battery, Wifi, BellRing, X } from "lucide-react";
 import { useState, useEffect } from "react";
 import { cn } from "../utils";
+import { SOUND_CLASSES } from "../data/sounds";
+
+declare global {
+  interface Window {
+    eel: any;
+  }
+}
 
 export function Dashboard() {
   const [isListening, setIsListening] = useState(false);
@@ -20,8 +27,19 @@ export function Dashboard() {
 
   function update_ui_result(result: any) {
     const settings = JSON.parse(localStorage.getItem("sonar_settings") || '{"notifications":true}');
+    const enabledSounds = JSON.parse(localStorage.getItem("sonar_enabled_sounds") || "{}");
 
     if (result.status === "quiet") {
+      setStatusText("Слушане на средата... ⏳");
+      return;
+    }
+
+    // Find the sound ID by matching the label
+    const soundEntry = SOUND_CLASSES.find(s => s.label === result.sound_type);
+    const isEnabled = soundEntry ? enabledSounds[soundEntry.id] !== false : true;
+
+    // If sound is filtered out by user, stay in listening mode
+    if (!isEnabled) {
       setStatusText("Слушане на средата... ⏳");
       return;
     }
@@ -109,31 +127,44 @@ export function Dashboard() {
         </motion.button>
       </LiquidCard>
 
-      {/* Toast Notification (Pop-up) */}
+      {/* Simulator-style Notification */}
       <AnimatePresence>
         {showToast && detectedSound && (
           <motion.div
-            initial={{ opacity: 0, y: 50, scale: 0.9 }}
+            initial={{ opacity: 0, y: -50, scale: 0.9 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.95, transition: { duration: 0.2 } }}
-            className="fixed bottom-24 left-6 right-6 z-50 pointer-events-none"
+            exit={{ opacity: 0, scale: 0.9 }}
+            className="fixed top-24 left-4 right-4 z-50 mx-auto max-w-sm pointer-events-auto"
           >
-            <div className="bg-white/90 backdrop-blur-xl border border-white/40 shadow-2xl rounded-3xl p-5 flex items-center gap-4 pointer-events-auto">
-              <div className={cn(
-                "h-12 w-12 rounded-2xl flex items-center justify-center shrink-0 shadow-sm",
-                detectedSound.status === "danger" ? "bg-red-100 text-red-600" : "bg-blue-100 text-blue-600"
-              )}>
-                <BellRing size={24} />
-              </div>
-              <div>
-                <div className="text-[10px] font-black text-slate-400 uppercase tracking-widest mb-0.5">
-                  ЗАСЕЧЕН ЗВУК
+            <LiquidCard
+              className={cn(
+                "border-l-4 p-4 shadow-2xl backdrop-blur-2xl transition-colors duration-300",
+                detectedSound.status === "danger" ? "border-l-red-500 bg-red-50/90" :
+                  detectedSound.status === "warning" ? "border-l-amber-500 bg-amber-50/90" :
+                    "border-l-blue-500 bg-blue-50/90"
+              )}
+            >
+              <div className="flex items-start gap-4">
+                <div className="text-4xl">
+                  {SOUND_CLASSES.find(s => s.label === detectedSound.sound_type)?.icon || "🔔"}
                 </div>
-                <div className="font-bold text-slate-800 text-lg">
-                  {detectedSound.sound_type}
+                <div className="flex-1">
+                  <h3 className="text-lg font-bold text-slate-800">Засечен звук!</h3>
+                  <p className="text-slate-600 font-medium">
+                    {detectedSound.sound_type}
+                    <span className="ml-2 text-[10px] font-black opacity-30 uppercase tracking-widest">
+                      {detectedSound.confidence}%
+                    </span>
+                  </p>
                 </div>
+                <button
+                  onClick={() => setShowToast(false)}
+                  className="text-slate-400 hover:text-slate-600 transition-colors p-1"
+                >
+                  <X size={20} />
+                </button>
               </div>
-            </div>
+            </LiquidCard>
           </motion.div>
         )}
       </AnimatePresence>

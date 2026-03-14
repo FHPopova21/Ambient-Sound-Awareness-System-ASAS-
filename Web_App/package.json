@@ -1,11 +1,16 @@
 {
-  "name": "@figma/my-make-file",
+  "name": "sonar",
   "private": true,
   "version": "0.0.1",
   "type": "module",
+  "homepage": "https://fhpopova21.github.io/SONAR",
   "scripts": {
     "build": "vite build",
-    "dev": "vite"
+    "dev": "vite",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
   "dependencies": {
     "@emotion/react": "11.14.0",
@@ -87,6 +92,5 @@
     "overrides": {
       "vite": "6.3.5"
     }
-  },
-  "homepage": "https://fhpopova21.github.io/SONAR"
+  }
 }

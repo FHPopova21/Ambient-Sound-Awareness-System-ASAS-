@@ -1,0 +1,33 @@
+name: Build SONAR Windows EXE
+
+on:
+  workflow_dispatch: # Това създава магически бутон "Run workflow" в GitHub!
+
+jobs:
+  build-windows:
+    runs-on: windows-latest # Казваме на GitHub да ни даде безплатен Windows компютър
+
+    steps:
+    - name: Взимане на кода
+      uses: actions/checkout@v4
+
+    - name: Инсталиране на Python
+      uses: actions/setup-python@v5
+      with:
+        python-version: '3.13'
+
+    - name: Инсталиране на библиотеки (Dependencies)
+      run: |
+        python -m pip install --upgrade pip
+        pip install pyinstaller
+        pip install -r requirements.txt
+
+    - name: Създаване на .exe файла
+      run: |
+        pyinstaller --onefile --windowed Windows_App/backend/main.py
+
+    - name: Качване на готовото .exe за изтегляне
+      uses: actions/upload-artifact@v4
+      with:
+        name: SONAR-Windows-App
+        path: dist/*.exe

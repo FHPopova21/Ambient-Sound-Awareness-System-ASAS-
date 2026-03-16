@@ -69,24 +69,29 @@ export function HeroSection() {
 
           {/* CTA Buttons */}
           <div className="flex flex-wrap gap-4">
-            <motion.button
+            <motion.a
+              href="https://github.com/FHPopova21/SONAR/actions"
+              target="_blank"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#ff6b35] to-[#f97316] flex items-center gap-3 shadow-[0_0_30px_rgba(255,107,53,0.5)] transition-all hover:shadow-[0_0_50px_rgba(255,107,53,0.7)]"
+              className="px-8 py-4 rounded-xl bg-gradient-to-r from-[#ff6b35] to-[#f97316] flex items-center gap-3 shadow-[0_0_30px_rgba(255,107,53,0.5)] transition-all hover:shadow-[0_0_50px_rgba(255,107,53,0.7)] text-white no-underline"
               style={{ fontWeight: 600 }}
             >
               <Download className="w-5 h-5" />
               Свали за Windows (.exe)
-            </motion.button>
-            <motion.button
+            </motion.a>
+            <motion.a
+              href="https://github.com/FHPopova21/SONAR"
+              target="_blank"
+              rel="noopener noreferrer"
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="px-8 py-4 rounded-xl backdrop-blur-xl bg-white/5 border border-white/20 flex items-center gap-3 hover:bg-white/10 transition-all"
+              className="px-8 py-4 rounded-xl backdrop-blur-md bg-white/2 border border-white/5 flex items-center gap-3 hover:bg-white/5 transition-all text-white no-underline"
               style={{ fontWeight: 600 }}
             >
               <Github className="w-5 h-5" />
               Виж кода в GitHub
-            </motion.button>
+            </motion.a>
           </div>
 
           {/* Team Info Glass Panel */}

@@ -219,3 +219,10 @@ data/Dataset_Final
 Windows_App/frontend/node_modules
 Web_App/node_modules
 
+# Executables
+*.exe
+Windows_App/*.exe
+dist/
+build/
+*.spec
+

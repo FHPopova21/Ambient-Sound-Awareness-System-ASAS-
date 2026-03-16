@@ -11,6 +11,17 @@ jobs:
     - name: Взимане на кода
       uses: actions/checkout@v4
 
+    - name: Настройка на Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
+
+    - name: Компилиране на Фронтенд (React/Vite)
+      run: |
+        cd Windows_App/frontend
+        npm install
+        npm run build
+
     - name: Инсталиране на Python
       uses: actions/setup-python@v5
       with:
@@ -24,7 +35,7 @@ jobs:
 
     - name: Създаване на .exe файла
       run: |
-        pyinstaller --onefile --windowed Windows_App/backend/main.py
+        pyinstaller --onefile --windowed --add-data "Windows_App/frontend/dist;dist" --add-data "models;models" --icon "Windows_App/backend/icon.ico" Windows_App/backend/main.py
 
     - name: Качване на готовото .exe за изтегляне
       uses: actions/upload-artifact@v4

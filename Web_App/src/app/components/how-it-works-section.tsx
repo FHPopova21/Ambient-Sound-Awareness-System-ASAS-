@@ -24,10 +24,10 @@ const steps = [
 
 export function HowItWorksSection() {
   return (
-    <section id="how-it-works" className="relative py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
+    <section id="how-it-works" className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
       {/* Animated Background Blobs */}
       <motion.div
-        className="absolute top-0 right-0 w-[600px] h-[600px] bg-[#ec4899] opacity-20 blur-[200px] rounded-full"
+        className="absolute top-0 right-0 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[#ec4899] opacity-20 blur-[100px] sm:blur-[200px] rounded-full"
         animate={{
           x: [0, 50, 0],
           y: [0, -30, 0],
@@ -46,12 +46,12 @@ export function HowItWorksSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-20 space-y-4"
+          className="text-center mb-12 md:mb-20 space-y-4"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight" style={{ fontWeight: 800 }}>
             Как работи?
           </h2>
-          <p className="text-lg md:text-xl opacity-70 max-w-2xl mx-auto">
+          <p className="text-base md:text-xl opacity-70 max-w-2xl mx-auto">
             Локален изкуствен интелект. Нулево забавяне.
           </p>
         </motion.div>

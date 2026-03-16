@@ -3,12 +3,12 @@ import { Github, FileText, Mail, ExternalLink } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="relative py-16 px-6 md:px-12 lg:px-24 border-t border-white/10">
+    <footer className="relative py-12 md:py-16 px-6 md:px-12 lg:px-24 border-t border-white/10">
       {/* Background Glow */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-gradient-to-t from-[#a855f7] to-transparent opacity-5 blur-[150px]" />
+      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] sm:w-[600px] h-[150px] sm:h-[300px] bg-gradient-to-t from-[#a855f7] to-transparent opacity-5 blur-[80px] sm:blur-[150px]" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
-        <div className="grid md:grid-cols-3 gap-12">
+        <div className="grid md:grid-cols-3 gap-10 md:gap-12">
           {/* Brand Section */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}

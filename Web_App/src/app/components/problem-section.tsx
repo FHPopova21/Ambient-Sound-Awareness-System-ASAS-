@@ -24,9 +24,9 @@ const problems = [
 
 export function ProblemSection() {
   return (
-    <section id="problem" className="relative py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
+    <section id="problem" className="relative py-16 md:py-24 px-6 md:px-12 lg:px-24 overflow-hidden">
       {/* Background Glow */}
-      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[400px] bg-[#a855f7] opacity-10 blur-[150px] rounded-full" />
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[800px] h-[300px] sm:h-[400px] bg-[#a855f7] opacity-10 blur-[100px] sm:blur-[150px] rounded-full" />
 
       <div className="relative z-10 max-w-7xl mx-auto">
         {/* Section Header */}
@@ -35,12 +35,12 @@ export function ProblemSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16 space-y-4"
+          className="text-center mb-12 md:mb-16 space-y-4"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl tracking-tight" style={{ fontWeight: 800 }}>
             Проблемът
           </h2>
-          <p className="text-lg md:text-xl opacity-70 max-w-2xl mx-auto">
+          <p className="text-base md:text-xl opacity-70 max-w-2xl mx-auto">
             Съвременният свят поставя нови предизвикателства пред безопасността и достъпността.
           </p>
         </motion.div>

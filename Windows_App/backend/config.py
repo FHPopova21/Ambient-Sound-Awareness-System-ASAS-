@@ -1,21 +1,31 @@
 import os
 import sys
 
-# Пътища
-if getattr(sys, 'frozen', False):
-    # Когато приложението е пакетирано (PyInstaller)
-    BASE_DIR = sys._MEIPASS
-    PROJECT_ROOT = BASE_DIR
-    MODELS_DIR = os.path.join(BASE_DIR, 'models')
-    WEB_DIR = os.path.join(BASE_DIR, 'dist')
-else:
-    # Когато се стартира нормално
-    BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-    PROJECT_ROOT = os.path.abspath(os.path.join(BASE_DIR, '..', '..'))
-    MODELS_DIR = os.path.join(PROJECT_ROOT, 'models')
-    WEB_DIR = os.path.join(BASE_DIR, '..', 'frontend', 'dist')
+def get_resource_path(relative_path):
+    """
+    Връща абсолютния път до ресурса. 
+    Работи както за нормална разработка, така и когато е пакетирано като .exe!
+    """
+    try:
+        # PyInstaller създава тайна папка и пази пътя до нея в sys._MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        # Ако не сме в .exe, ползваме нормалната главна папка (backend/)
+        base_path = os.path.dirname(os.path.abspath(__file__))
 
-WEIGHTS_PATH = os.path.join(MODELS_DIR, 'best_mobilenet.pth')
+    return os.path.join(base_path, relative_path)
+
+# Пътища
+PROJECT_ROOT = get_resource_path("")
+
+# За тежестите на модела
+# В .exe ще са в главната папка, в dev са в ../../models/
+if getattr(sys, 'frozen', False):
+    WEIGHTS_PATH = get_resource_path('best_mobilenet.pth')
+    WEB_DIR = get_resource_path('dist')
+else:
+    WEIGHTS_PATH = os.path.abspath(os.path.join(PROJECT_ROOT, '..', '..', 'models', 'best_mobilenet.pth'))
+    WEB_DIR = os.path.abspath(os.path.join(PROJECT_ROOT, '..', 'frontend', 'dist'))
 
 # Настройки за анализ
 COOLDOWN_SECONDS = 5.0

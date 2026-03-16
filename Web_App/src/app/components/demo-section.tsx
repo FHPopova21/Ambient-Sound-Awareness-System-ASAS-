@@ -39,7 +39,7 @@ export function DemoSection() {
             Виж го в действие
           </h2>
           <p className="text-base md:text-xl opacity-70 max-w-2xl mx-auto">
-            Демонстрация на разпознаването на сирени в реално време
+            Демонстрация на разпознаването на звуци в реално време
           </p>
         </motion.div>
 

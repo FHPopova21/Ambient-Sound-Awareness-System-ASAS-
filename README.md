@@ -15,7 +15,7 @@
 
 Това издание съдържа пълната екосистема за AI разпознаване на звуци в реално време. Приложението използва **Edge AI (MobileNetV2)**, за да анализира и разпознава критични звуци от обкръжаващата среда напълно офлайн, защитавайки вашата поверителност на 100%.
 
-[![Download for Windows](https://img.shields.io/badge/Download_Latest-SONAR.exe-0078D6?style=for-the-badge&logo=windows)](ТУК_СЛОЖИ_ЛИНКА_КЪМ_ТВОЯ_RELEASE)
+[![Download for Windows](https://img.shields.io/badge/Download_Latest-SONAR.exe-0078D6?style=for-the-badge&logo=windows)](https://github.com/FHPopova21/SONAR/releases/tag/v1.0.0)
 
 ### 🚀 Инструкции за стартиране:
 1. Кликнете на бутона по-горе (или отидете в секцията **Releases** вдясно) и изтеглете файла `SONAR.exe`.

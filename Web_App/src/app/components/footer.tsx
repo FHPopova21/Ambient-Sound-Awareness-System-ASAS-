@@ -43,9 +43,8 @@ export function Footer() {
             </h3>
             <ul className="space-y-3">
               {[
-                { icon: FileText, label: "Документация (.rtf)", href: "#" },
-                { icon: Github, label: "GitHub Repository", href: "#" },
-                { icon: ExternalLink, label: "API Reference", href: "#" },
+                { icon: FileText, label: "Документация (.rtf)", href: "https://codingburgas-my.sharepoint.com/:w:/g/personal/fhpopova21_codingburgas_bg/IQBwMBhaGumWSIzeESyhPDhrAa9J_sWt4HmmINaMLOI0eMo?e=xgOqWF" },
+                { icon: Github, label: "GitHub Repository", href: "https://github.com/FHPopova21/SONAR.git" },
               ].map((link, i) => (
                 <li key={i}>
                   <a
@@ -73,11 +72,11 @@ export function Footer() {
             </h3>
             <div className="space-y-3">
               <a
-                href="mailto:contact@sonar-ai.dev"
+                href="mailto:[EMAIL_ADDRESS]"
                 className="flex items-center gap-2 opacity-70 hover:opacity-100 transition-opacity group"
               >
                 <Mail className="w-4 h-4 group-hover:text-[#ff6b35] transition-colors" />
-                <span className="text-sm">contact@sonar-ai.dev</span>
+                <span className="text-sm">[fhpopova21@codingburgas.bg]</span>
               </a>
             </div>
 

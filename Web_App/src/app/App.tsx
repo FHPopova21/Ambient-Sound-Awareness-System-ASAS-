@@ -4,6 +4,7 @@ import { ProblemSection } from "./components/problem-section";
 import { HowItWorksSection } from "./components/how-it-works-section";
 import { DemoSection } from "./components/demo-section";
 import { TechStackSection } from "./components/tech-stack-section";
+import { AboutSection } from "./components/about-section";
 import { Footer } from "./components/footer";
 //.
 export default function App() {
@@ -15,6 +16,7 @@ export default function App() {
       <HowItWorksSection />
       <DemoSection />
       <TechStackSection />
+      <AboutSection />
       <Footer />
     </div>
   );

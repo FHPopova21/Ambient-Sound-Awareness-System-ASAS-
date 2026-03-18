@@ -2,7 +2,7 @@ import { motion } from "motion/react";
 
 export function AboutSection() {
   return (
-    <section id="about" className="relative py-20 px-6 bg-[#0f172a] text-white overflow-hidden">
+    <section id="about" className="relative py-20 px-6 bg-[#0f0620] text-white overflow-hidden">
       {/* Background Glow */}
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[400px] bg-[#a855f7] opacity-5 blur-[120px]" />
 

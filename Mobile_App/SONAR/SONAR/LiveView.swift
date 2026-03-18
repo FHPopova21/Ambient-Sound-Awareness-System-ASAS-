@@ -91,7 +91,7 @@ struct LiveView: View {
                     .clipShape(RoundedRectangle(cornerRadius: 30, style: .continuous))
                     .padding(.horizontal)
                     
-                    // 2. Last Detected Sound
+                    // 2. Последно засечен звук
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Последно засечен звук")
                             .font(.headline)
@@ -126,7 +126,7 @@ struct LiveView: View {
                     }
                     .padding(.horizontal)
                     
-                    // 3. Today's Activity
+                    // 3. Активност днес
                     VStack(alignment: .leading, spacing: 12) {
                         Text("Активност днес")
                             .font(.headline)

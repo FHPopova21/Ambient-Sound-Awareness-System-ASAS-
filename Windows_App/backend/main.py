@@ -24,7 +24,7 @@ audio = AudioHandler(engine.device)
 
 def analysis_loop():
     global is_analyzing, last_prediction_time
-    print("🔄 Започвам непрекъснат анализ (Gapless + iOS Processing)...")
+    print("🔄 Започвам непрекъснат анализ (Без прекъсвания + iOS обработка)...")
     
     window_samples = int(WINDOW_DURATION * SAMPLE_RATE)
     audio_buffer = np.zeros(window_samples)
@@ -43,13 +43,13 @@ def analysis_loop():
                     time.sleep(0.1)
                     continue
 
-                # Проверка за COOLDOWN (5 сек)
+                # Проверка за период на изчакване (5 сек)
                 current_time = time.time()
                 if current_time - last_prediction_time < COOLDOWN_SECONDS:
                     time.sleep(0.1)
                     continue
 
-                # Препроцесинг и Предсказание
+                # Предварителна обработка и предсказание
                 processed_audio = audio.preprocess_audio(audio_buffer)
                 predicted_idx, confidence = engine.predict(processed_audio)
                 
@@ -115,7 +115,7 @@ def update_settings(new_settings):
     app_settings.update(new_settings)
     print(f"⚙️ Настройките бяха обновени: {app_settings}")
 
-# Eel Init
+# Инициализация на Eel
 eel.init(WEB_DIR)
 
 print("🚀 SONAR Windows е зареден и готов!")

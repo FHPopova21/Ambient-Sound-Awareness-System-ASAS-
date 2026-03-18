@@ -14,7 +14,7 @@ def get_device_info():
             "is_charging": is_charging
         }
     except Exception as e:
-        print(f"Error getting device info: {e}")
+        print(f"Грешка при извличане на информация за устройството: {e}")
         return {
             "device_name": "Това устройство", 
             "battery_percent": 100, 

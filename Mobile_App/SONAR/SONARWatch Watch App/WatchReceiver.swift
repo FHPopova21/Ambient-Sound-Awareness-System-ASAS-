@@ -23,7 +23,7 @@ class WatchReceiver: NSObject, ObservableObject, WCSessionDelegate {
         }
     }
     
-    // MARK: - WCSessionDelegate
+    // MARK: - Делегат на WCSession (WCSessionDelegate)
     nonisolated func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("⌚️ WCSession активирана на Watch. Състояние: \(activationState.rawValue)")
     }
@@ -56,7 +56,7 @@ class WatchReceiver: NSObject, ObservableObject, WCSessionDelegate {
         var displayName = rawValue
         var hapticType: WKHapticType = .notification
         
-        // Мапингът на звуците (съвпада с този от iPhone)
+        // Съпоставяне на звуците (съвпада с това от iPhone)
         switch rawValue {
         case "Siren_Alarm":
             emoji = "🚨"

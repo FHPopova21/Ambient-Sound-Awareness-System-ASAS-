@@ -10,7 +10,7 @@ def get_resource_path(relative_path):
         # PyInstaller създава тайна папка и пази пътя до нея в sys._MEIPASS
         base_path = sys._MEIPASS
     except Exception:
-        # Ако не сме в .exe, ползваме нормалната главна папка (backend/)
+        # Ако не сме в .exe, ползваме стандартната главна папка (backend/)
         base_path = os.path.dirname(os.path.abspath(__file__))
 
     return os.path.join(base_path, relative_path)
@@ -33,7 +33,7 @@ COOLDOWN_SECONDS = 5.0
 SAMPLE_RATE = 22050
 WINDOW_DURATION = 4.0
 
-# Лейбъли и мапинг
+# Етикети и съответствия
 LABELS = [
     "Baby_Cry", "Background", "Car_Horn", 
     "Construction", "Dog_Bark", "Door_Signal", 

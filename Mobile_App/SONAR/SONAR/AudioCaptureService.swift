@@ -14,13 +14,13 @@ final class AudioCaptureService: NSObject {
         var ioBufferDuration: TimeInterval = 0.023
     }
     
-    // MARK: - Public properties
+    // MARK: - Публични свойства
     var configuration = Configuration()
     public var onFrame: (([Float]) -> Void)?
     public var isModelReady = true
     public var isPaused = false
     
-    // MARK: - Private properties
+    // MARK: - Частни свойства
     private let engine = AVAudioEngine()
     private var converter: AVAudioConverter?
     private var targetFormat: AVAudioFormat?
@@ -28,14 +28,14 @@ final class AudioCaptureService: NSObject {
     private var frameSamplesTarget: Int = 0
     private var isRunning = false
     
-    //MARK: - Pause and resume
+    //MARK: - Пауза и продължаване
     public func pause() {
         guard isRunning, !isPaused else {return}
         engine.pause()
         isPaused = true
         bufferSamples.removeAll()
 
-        print("Аудио запис е спрян")
+        print("Аудио записът е спрян")
     }
     
     public func resume() throws {
@@ -48,7 +48,7 @@ final class AudioCaptureService: NSObject {
 
     }
 
-    // MARK: - Start capture
+    // MARK: - Стартиране на записа
     public func start(sampleRate: Double = 22_050,
                       frameDurationSeconds: Double = 2.0,
                       normalizePerFrame: Bool = false) async throws {
@@ -57,12 +57,12 @@ final class AudioCaptureService: NSObject {
         isRunning = true
         print("🔊 AudioCaptureService.start() извикан")
         
-        configuration.sampleRate = sampleRate   // желаната честота за модела (22050)
+        configuration.sampleRate = sampleRate   // желаната честота за модела (22050 Hz)
         configuration.frameDurationSeconds = frameDurationSeconds
         configuration.normalizePerFrame = normalizePerFrame
         
         let session = AVAudioSession.sharedInstance()
-        print("🔊 Текущ AVAudioSession category: \(session.category.rawValue), mode: \(session.mode.rawValue)")
+        print("🔊 Текуща AVAudioSession категоря: \(session.category.rawValue), режим: \(session.mode.rawValue)")
         try session.setCategory(.playAndRecord,
                                 mode: .default,
                                 options: [.mixWithOthers, .defaultToSpeaker])
@@ -157,7 +157,7 @@ final class AudioCaptureService: NSObject {
                         return
                     }
                     
-                    // Optional normalization (по желание)
+                    // Опционална нормализация (по желание)
                     if self.configuration.normalizePerFrame {
                         var mean: Float = 0
                         vDSP_meanv(frame, 1, &mean, vDSP_Length(frame.count))
@@ -203,7 +203,7 @@ final class AudioCaptureService: NSObject {
                                                object: nil)
     }
     
-    // MARK: - Stop capture
+    // MARK: - Спиране на записа
     public func stop() {
         guard isRunning else { return }
         isRunning = false
@@ -216,7 +216,7 @@ final class AudioCaptureService: NSObject {
     }
 
     
-    // MARK: - Notifications
+    // MARK: - Нотификации
     @objc private func handleInterruption(_ notification: Notification) {
         guard let info = notification.userInfo,
               let typeValue = info[AVAudioSessionInterruptionTypeKey] as? UInt,

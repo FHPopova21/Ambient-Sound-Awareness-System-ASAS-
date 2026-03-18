@@ -32,7 +32,7 @@ class SoundDetector: ObservableObject {
     // Съхраняваме активността за деня (колко пъти е засечен всеки звук)
     @Published var todaysActivity: [String: Int] = [:]
     
-    // Rate limiting notifications
+    // Ограничаване на честотата на известията
     private var lastNotificationTimes: [String: Date] = [:]
     private let notificationCooldown: TimeInterval = 10.0
     
@@ -148,7 +148,7 @@ class SoundDetector: ObservableObject {
                     let label = predictedLabel ?? Self.argmaxLabel(from: probs)
                     let confidence = probs[label] ?? 0.0
                     
-                    // UI: показваме вероятности (скриваме Background)
+                    // Потребителски интерфейс: показваме вероятности (скриваме Background)
                     let orderedForUI = self.classOrder
                         .filter { $0 != "Background" }
                         .compactMap { name -> SoundClassProb? in
@@ -158,7 +158,7 @@ class SoundDetector: ObservableObject {
                         .sorted(by: { $0.probability > $1.probability })
                     self.probabilities = orderedForUI
                     
-                    // Debug top-3: показваме и Background за диагностика
+                    // Логване за диагностика: показваме и Background за проследяване
                     let orderedForLog = self.classOrder
                         .compactMap { name -> (String, Double)? in
                             guard let p = probs[name] else { return nil }
@@ -255,7 +255,7 @@ class SoundDetector: ObservableObject {
         }
     }
     
-    // MARK: - Simulation helpers (за режима с бутоните)
+    // MARK: - Помощни функции за симулация (за режима с бутоните)
     func simulate(category: SoundCategory) {
         currentSoundLabel = category.displayName
         lastDetectedSoundLabel = category.displayName
@@ -319,7 +319,7 @@ class SoundDetector: ObservableObject {
             self.modelProbsOutputName = name
         }
         
-        print("🧩 Model IO: input=\(modelInputName ?? "?"), labelOut=\(modelLabelOutputName ?? "?"), probsOut=\(modelProbsOutputName ?? "?")")
+        print("🧩 Модел IO: вход=\(modelInputName ?? "?"), етикет Изход=\(modelLabelOutputName ?? "?"), вероятност Изход=\(modelProbsOutputName ?? "?")")
     }
     
     private static func extractPrediction(out: MLFeatureProvider,
@@ -376,7 +376,7 @@ class SoundDetector: ObservableObject {
         probs.max(by: { $0.value < $1.value })?.key ?? "Background"
     }
     
-    // MARK: - Helper: ресемплиране към 22050 Hz за 4 секунди
+    // MARK: - Помощна функция: ресемплиране към 22050 Hz за 4 секунди
     private static func resampleTo22050(audioSamples: [Float]) -> [Float] {
         let targetSampleRate: Float = 22_050.0
         let targetDuration: Float = 4.0

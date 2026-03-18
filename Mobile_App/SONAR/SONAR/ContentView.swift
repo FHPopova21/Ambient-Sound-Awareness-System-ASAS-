@@ -1,7 +1,7 @@
 import SwiftUI
 
 
-// MARK: - History View
+// MARK: - Изглед „История“
 struct HistoryView: View {
     
     struct HistoryItem: Identifiable {
@@ -94,7 +94,7 @@ struct HistoryView: View {
     }
 }
 
-// MARK: - Main Content View
+// MARK: - Основен изглед (Content View)
 struct ContentView: View {
     // 🔴 ТУК Е МАГИЯТА: Инициализираме новия, истински AI мениджър!
     @StateObject private var detector = SoundDetector()
@@ -128,7 +128,7 @@ struct ContentView: View {
     }
 }
 
-// MARK: - Preview
+// MARK: - Предварителен преглед (Preview)
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()

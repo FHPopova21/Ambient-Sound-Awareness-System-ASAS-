@@ -9,6 +9,7 @@ if REPO_ROOT not in sys.path:
 from src.models.mobilenet_model import AudioMobileNetV2
 
 class ModelEngine:
+    """Осигурява интерфейс за AI модела и изпълнява предсказания върху аудио данни."""
     def __init__(self):
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.model = AudioMobileNetV2(n_classes=len(LABELS), pretrained=False)
@@ -16,6 +17,7 @@ class ModelEngine:
         self.model.to(self.device).eval()
 
     def load_weights(self):
+        """Зарежда предварително тренираните тегла на модела."""
         if os.path.exists(WEIGHTS_PATH):
             print(f"Зареждане на тегла от: {WEIGHTS_PATH}")
             self.model.load_state_dict(torch.load(WEIGHTS_PATH, map_location=self.device))
@@ -23,6 +25,7 @@ class ModelEngine:
             print(f"ВНИМАНИЕ: Файлът с тегла не е намерен на {WEIGHTS_PATH}")
 
     def predict(self, tensor):
+        """Изпълнява предсказание върху обработения аудио тензор."""
         with torch.no_grad():
             outputs = self.model(tensor)
             probabilities = torch.nn.functional.softmax(outputs, dim=1)

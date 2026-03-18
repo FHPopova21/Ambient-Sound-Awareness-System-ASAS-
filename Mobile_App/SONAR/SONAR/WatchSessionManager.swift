@@ -23,7 +23,7 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
     
     func sendSoundDetection(category: String) {
         guard session.isReachable else {
-            print("⌚️ WCSession is not reachable.")
+            print("⌚️ WCSession не е налична в момента.")
             return
         }
         
@@ -49,17 +49,17 @@ class WatchSessionManager: NSObject, WCSessionDelegate {
         }
     }
     
-    // MARK: - WCSessionDelegate (iOS needed methods)
+    // MARK: - WCSessionDelegate (необходими методи за iOS)
     func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
         print("⌚️ WCSession активирана на iOS. Състояние: \(activationState.rawValue)")
     }
     
     func sessionDidBecomeInactive(_ session: WCSession) {
-        // Задължителен метод за iOS, празно е Ок
+        // Задължителен метод за iOS, може да остане празен
     }
     
     func sessionDidDeactivate(_ session: WCSession) {
-        // Задължителен метод за iOS, реактивираме сесията
+        // Задължителен метод за iOS, активираме отново сесията
         session.activate()
     }
 }

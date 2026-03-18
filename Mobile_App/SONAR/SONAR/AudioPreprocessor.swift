@@ -32,7 +32,7 @@ public actor AudioPreprocessor {
         if let setup = setup { vDSP_DFT_DestroySetup(setup) }
     }
     
-    // MARK: - Основната функция (Audio -> Мел Матрица)
+    // MARK: - Основна функция (Аудио -> Мел спектрограма)
     public func processToMelSpectrogram(audioSamples: [Float]) throws -> [[Float]] {
         // Pre-emphasis: y[n] = x[n] - 0.97 * x[n-1]
         let cleanSamples = applyPreEmphasis(samples: audioSamples)
@@ -101,7 +101,7 @@ public actor AudioPreprocessor {
             }
         }
         
-        // 2) librosa.power_to_db еквивалент
+        // 2) Еквивалент на librosa.power_to_db
         let topDb: Float = 80.0
         let refDb = 10.0 * log10(max(maxMelValue, 1e-10))
         
@@ -110,7 +110,7 @@ public actor AudioPreprocessor {
                 let melValue = rawMelSpectrogram[m][t]
                 let powerDb = 10.0 * log10(max(melValue, 1e-10))
                 
-                // Subtract refDb, bound by topDb
+                // Изваждане на refDb, ограничено от topDb
                 let dbScaled = powerDb - refDb
                 let dbThreshold = -topDb
                 let finalDb = max(dbScaled, dbThreshold)

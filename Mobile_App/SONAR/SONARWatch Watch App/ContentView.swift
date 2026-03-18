@@ -13,7 +13,7 @@ struct ContentView: View {
     
     var body: some View {
         VStack(spacing: 8) {
-            // Listening Header
+            // Заглавие - Статус
             HStack(spacing: 6) {
                 Circle()
                     .fill(receiver.isListening ? Color.green : Color.red)
@@ -23,7 +23,7 @@ struct ContentView: View {
                     .animation(receiver.isListening ? .easeInOut(duration: 1.0).repeatForever() : .default, value: pulse)
                     .animation(.default, value: receiver.isListening)
                 
-                Text(receiver.isListening ? "Listening..." : "Paused")
+                Text(receiver.isListening ? "Слушам..." : "На пауза")
                     .font(.footnote)
                     .foregroundColor(receiver.isListening ? .secondary : .red)
             }
@@ -31,10 +31,10 @@ struct ContentView: View {
             
             Spacer()
             
-            // Last Sound
+            // Последен звук
             VStack(spacing: 4) {
                 if receiver.lastSoundName == "Няма данни" {
-                    Text("Sonar is active")
+                    Text("Sonar е активен")
                         .font(.headline)
                         .foregroundColor(.secondary)
                         .multilineTextAlignment(.center)

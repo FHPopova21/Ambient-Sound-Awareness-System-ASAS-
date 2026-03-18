@@ -5,7 +5,7 @@ struct SettingsView: View {
     @AppStorage("isNotificationsEnabled") private var isNotificationsEnabled: Bool = true
     @AppStorage("isVibrationEnabled") private var isVibrationEnabled: Bool = true
     
-    // Battery Observation State
+    // Състояние на батерията и устройството
     @State private var batteryLevel: Float = 0.0
     @State private var batteryState: UIDevice.BatteryState = .unknown
     @State private var deviceName: String = UIDevice.current.name
@@ -34,7 +34,7 @@ struct SettingsView: View {
                             .font(.headline)
                         VStack(spacing: 12) {
                             SettingsDeviceRow(title: "Apple Watch",
-                                              subtitle: "Не е свързан", // Може да се ъпдейтне с WatchConnectivity
+                                              subtitle: "Не е свързан", // Може да се обнови чрез WatchConnectivity
                                               icon: "applewatch",
                                               tint: .purple)
                             SettingsDeviceRow(title: deviceName,

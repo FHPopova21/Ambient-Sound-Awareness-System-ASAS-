@@ -1,10 +1,10 @@
 import torch
 import os
 import sys
-from config import PROJECT_ROOT, WEIGHTS_PATH, LABELS
+from config import REPO_ROOT, WEIGHTS_PATH, LABELS
 
-if PROJECT_ROOT not in sys.path:
-    sys.path.append(PROJECT_ROOT)
+if REPO_ROOT not in sys.path:
+    sys.path.append(REPO_ROOT)
 
 from src.models.mobilenet_model import AudioMobileNetV2
 

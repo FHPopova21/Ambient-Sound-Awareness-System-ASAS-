@@ -17,6 +17,7 @@ def get_resource_path(relative_path):
 
 # Пътища
 PROJECT_ROOT = get_resource_path("")
+REPO_ROOT = os.path.abspath(os.path.join(PROJECT_ROOT, '..', '..'))
 
 # За тежестите на модела
 # В .exe ще са в главната папка, в dev са в ../../models/

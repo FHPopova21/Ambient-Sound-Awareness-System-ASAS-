@@ -22,8 +22,8 @@ export function Navbar() {
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <a href="#" className="flex items-center gap-2 z-[110]">
-          <div className="w-12 h-12 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_15px_rgba(255,107,53,0.4)]">
-            <img src="../../public/Sonar_logo.png" alt="SONAR Logo" className="w-18 h-18 object-cover" />
+          <div className="w-8 h-8 rounded-lg overflow-hidden flex items-center justify-center shadow-[0_0_15px_rgba(255,107,53,0.4)]">
+            <img src="../../public/Sonar_logo.jpg" alt="SONAR Logo" className="w-12 h-12 object-cover" />
           </div>
           <span className="font-bold tracking-widest text-lg text-white">SONAR</span>
         </a>
